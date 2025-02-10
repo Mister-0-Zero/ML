@@ -27,7 +27,8 @@ model = LogisticRegression()
 model.fit(X_train, Y_train)
 predict = model.predict(X_test)
 
-# Разделение данных по классам
+# Преобразуем Y обратно в массив и делим данные по классам
+Y = np.array(Y)
 X_adults = X[Y == 0]
 X_children = X[Y == 1]
 
@@ -47,51 +48,30 @@ ax1.scatter(X_children[:, 0], X_children[:, 1], X_children[:, 2], color='red', l
 # Тестовые предсказания
 for i, point in enumerate(X_test):
     color = 'green' if predict[i] == 0 else 'orange'
-    ax1.scatter(point[0], point[1], point[2], color=color, edgecolors='black', marker='x', s=100)
+    ax1.scatter(point[0], point[1], point[2], color=color, marker='x', s=100)
 
 ax1.legend()
 
-# 2D: Рост vs Вес
-ax2 = fig.add_subplot(222)
-ax2.set_title("Рост vs Вес")
-ax2.set_xlabel("Рост (м)")
-ax2.set_ylabel("Вес (кг)")
-ax2.scatter(X_adults[:, 0], X_adults[:, 1], color='blue', label='Взрослые')
-ax2.scatter(X_children[:, 0], X_children[:, 1], color='red', label='Дети')
+# Функция для построения 2D-графиков
+def TwoD(subplot, title, xlabel, ylabel, idx_x, idx_y):
+    ax = fig.add_subplot(subplot)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
 
-for i, point in enumerate(X_test):
-    color = 'green' if predict[i] == 0 else 'orange'
-    ax2.scatter(point[0], point[1], color=color, edgecolors='black', marker='x', s=100)
+    ax.scatter(X_adults[:, idx_x], X_adults[:, idx_y], color='blue', label='Взрослые')
+    ax.scatter(X_children[:, idx_x], X_children[:, idx_y], color='red', label='Дети')
 
-ax2.legend()
+    for i, point in enumerate(X_test):
+        color = 'green' if predict[i] == 0 else 'orange'
+        ax.scatter(point[idx_x], point[idx_y], color=color, marker='x', s=100)
 
-# 2D: Рост vs Длительность сна
-ax3 = fig.add_subplot(223)
-ax3.set_title("Рост vs Длительность сна")
-ax3.set_xlabel("Рост (м)")
-ax3.set_ylabel("Сон (ч)")
-ax3.scatter(X_adults[:, 0], X_adults[:, 2], color='blue', label='Взрослые')
-ax3.scatter(X_children[:, 0], X_children[:, 2], color='red', label='Дети')
+    ax.legend()
 
-for i, point in enumerate(X_test):
-    color = 'green' if predict[i] == 0 else 'orange'
-    ax3.scatter(point[0], point[2], color=color, edgecolors='black', marker='x', s=100)
-
-ax3.legend()
-
-# 2D: Вес vs Длительность сна
-ax4 = fig.add_subplot(224)
-ax4.set_title("Вес vs Длительность сна")
-ax4.set_xlabel("Вес (кг)")
-ax4.set_ylabel("Сон (ч)")
-ax4.scatter(X_adults[:, 1], X_adults[:, 2], color='blue', label='Взрослые')
-ax4.scatter(X_children[:, 1], X_children[:, 2], color='red', label='Дети')
-
-for i, point in enumerate(X_test):
-    color = 'green' if predict[i] == 0 else 'orange'
-    ax4.scatter(point[1], point[2], color=color, edgecolors='black', marker='x', s=100)
-
-ax4.legend()
+# Построение 2D-графиков
+TwoD(222, "Рост и вес", "Рост (м)", "Вес (кг)", 0, 1)
+TwoD(223, "Рост и длительность сна", "Рост (м)", "Длительность сна (ч)", 0, 2)
+TwoD(224, "Вес и длительность сна", "Вес (кг)", "Длительность сна (ч)", 1, 2)
 
 plt.tight_layout()
 plt.show()
