@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from lerning.ML_.models.accuracy import accuracy
 import random
 
 # Генерация данных
@@ -27,6 +28,9 @@ model = LogisticRegression()
 model.fit(X_train, Y_train)
 predict = model.predict(X_test)
 
+accuracy_val = accuracy(predict, Y_test)
+print(f"accuracy: {accuracy_val}")
+
 # Преобразуем Y обратно в массив и делим данные по классам
 Y = np.array(Y)
 X_adults = X[Y == 0]
@@ -34,6 +38,7 @@ X_children = X[Y == 1]
 
 # Создание графиков
 fig = plt.figure(figsize=(12, 8))
+fig.text(0.4, 0.01, f"accuracy: {accuracy_val}")
 
 # 3D-график
 ax1 = fig.add_subplot(221, projection='3d')
