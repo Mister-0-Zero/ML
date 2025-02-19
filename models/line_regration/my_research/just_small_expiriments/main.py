@@ -4,7 +4,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import random
 from my_model import LinearRegressionGD
-from lerning.ML_.models.line_regration.my_research.just_small_expiriments.accurancy import accurancy
+from lerning.ML_.models.accuracy import accuracy
 from select_parametrs import select_param
 
 # Генерация данных
@@ -84,7 +84,7 @@ def update_plot():
     application_scatter(axs[0], X_test[y_predGPT >= 0.5], (0.5, 1, 0.5), "Predicted X1 trees", 35)
     application_scatter(axs[0], X_test[y_predGPT < 0.5], (0.5, 0.0, 0.5), "Predicted X0 trees", 35)
     axs[0].legend()
-    axs[0].text(0.5, -0.13, f"Accurancy: {accurancy(y_predGPT, y_test)}", ha='center', transform=axs[0].transAxes)
+    axs[0].text(0.5, -0.13, f"accuracy: {accuracy(y_predGPT, y_test)}", ha='center', transform=axs[0].transAxes)
 
     # Второй график
     axs[1].set_title("My solution")
@@ -95,7 +95,7 @@ def update_plot():
     application_scatter(axs[1], X_test[my_y_pred >= 0.5], (0.5, 1, 0.5), "Predicted X1 trees", 35)
     application_scatter(axs[1], X_test[my_y_pred < 0.5], (0.5, 0.0, 0.5), "Predicted X0 trees", 35)
     axs[1].legend()
-    axs[1].text(0.5, -0.13, f"Accurancy: {accurancy(my_y_pred, y_test)}", ha='center', transform=axs[1].transAxes)
+    axs[1].text(0.5, -0.13, f"accuracy: {accuracy(my_y_pred, y_test)}", ha='center', transform=axs[1].transAxes)
     plt.draw()
 
 

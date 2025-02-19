@@ -4,13 +4,14 @@ import time
 
 from mySolution.KNeighborsClassifier import fKNeighborsClassifier
 from internet_and_AI_solution.gptSolution import gptSolution
+from internet_and_AI_solution.random_foerst import random_forest
 
 from additional_functionality_and_reports_results.print_long_string import print_long_string
 from additional_functionality_and_reports_results.reports_results import *
 
 
-mas_name = ["fKNeighborsClassifier", "gptSolution"]
-func = [fKNeighborsClassifier, gptSolution]
+mas_name = ["fKNeighborsClassifier", "gptSolution", "random_forest"]
+func = [fKNeighborsClassifier, gptSolution, random_forest]
 
 data = load_iris()
 X = data.data
